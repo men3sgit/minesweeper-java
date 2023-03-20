@@ -1,59 +1,27 @@
 package com.menes.projects.minesweeper.model;
 
-public class Cell {
-    private boolean hasMine;
-    private int numNeighborMines;
-    private boolean isRevealed;
-    private boolean isFlagged;
-
-    public Cell(boolean hasMine) {
-        this.hasMine = hasMine;
-        this.numNeighborMines = 0;
-        this.isRevealed = false;
-        this.isFlagged = false;
+public class Cell{
+    private Status status;
+    public boolean isMine(){
+        return status == Status.MINE;
+    }
+    @Override
+    public String toString(){
+        return status.toString();
     }
 
-    public boolean hasMine() {
-        return hasMine;
+    public Cell(Status status) {
+        this.status = status;
     }
 
-    public int getNumNeighborMines() {
-        return numNeighborMines;
+    public Status getStatus() {
+        return status;
+    }
+    public boolean isEmpty(){
+        return this.status == Status.EMPTY;
     }
 
-    public boolean isRevealed() {
-        return isRevealed;
-    }
-
-    public boolean isFlagged() {
-        return isFlagged;
-    }
-
-    public void setNumNeighborMines(int numNeighborMines) {
-        this.numNeighborMines = numNeighborMines;
-    }
-
-    public void reveal() {
-        isRevealed = true;
-    }
-
-    public void toggleFlag() {
-        isFlagged = !isFlagged;
-    }
-
-    public boolean isHasMine() {
-        return hasMine;
-    }
-
-    public void setHasMine(boolean hasMine) {
-        this.hasMine = hasMine;
-    }
-
-    public void setRevealed(boolean revealed) {
-        isRevealed = revealed;
-    }
-
-    public void setFlagged(boolean flagged) {
-        isFlagged = flagged;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
