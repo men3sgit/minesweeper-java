@@ -10,27 +10,38 @@ public class Board {
 
     public Board() {
         init();
+    }
+    public void init(){
+        initEmptyCells();
+
         setMines(MineSweeper.LEVEL);
 
-        for (int i = 0; i < board.length; i++)
-            for (int j = 0; j < board[i].length; j++)
-                checkMineInBound(i, j); // bound = 3x3
-
+        initMineInBound();
     }
-
-    private void init() {
-        for (int i = 0; i < board.length; i++)
-            for (int j = 0; j < board[i].length; j++)
+    private void initEmptyCells(){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = new Cell(Status.EMPTY);
+            }
+        }
+    }
+    private void initMineInBound(){
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                checkMineInBound(i, j); // bound = 3x3
+            }
+        }
     }
 
     public Cell[][] getBoard() {
         return board;
     }
-    public int getHeight(){
+
+    public int getHeight() {
         return this.getBoard().length;
     }
-    public int getWidth(){
+
+    public int getWidth() {
         return this.getBoard()[0].length;
     }
 
