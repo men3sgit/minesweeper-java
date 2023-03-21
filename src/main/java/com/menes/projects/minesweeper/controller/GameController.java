@@ -33,17 +33,41 @@ public class GameController {
                     }
                     if (source == cellGUI && clicked(cellGUI)) {
                         revealCell(cellGUI);
-                        if (cellGUI.getText().equals("  ")) check(i, j);
+                        if (cellGUI.getStatus() == Status.EMPTY) {
+                            spread(i, j);
+                        }
                         if (!running) {
                             running = true;
                         }
 //                        gameOver(button);
 //                        speakerMode();
-                        break;
+                        return;
                     }
 
                 }
         }
+
+        private void spread(int x, int y) {
+            if (gameDisplay.getBoardGUI().getCellsGUI()[x][y].getStatus() != Status.EMPTY)
+                return;
+            int i, j, limX, limY;
+            i = x == 0 ? x : x - 1;
+            j = y == 0 ? y : y - 1;
+            limX = x == MineSweeper.LEVEL - 1 ? x + 1 : x + 2;
+            limY = y == MineSweeper.LEVEL - 1 ? y + 1 : y + 2;
+            for (int row = i; row < limX; row++)
+                for (int col = j; col < limY; col++) {
+                    CellGUI cellGUI = gameDisplay.getBoardGUI().getCellsGUI()[row][col];
+                    if (cellGUI.getStatus() == Status.EMPTY) {
+//                        if (button.getIcon().toString().equals(flag.toString()))
+//                            status.setQuantityFlagsLabel(++status.quantityFlags);
+                        revealCell(cellGUI);
+                        spread(row, col);
+                        cellGUI.setVisible(false);
+                    }
+                }
+        }
+
 
         private void revealCell(CellGUI source) {
             CellGUI cellGUI;
@@ -51,25 +75,14 @@ public class GameController {
                 for (int j = 0; j < MineSweeper.LEVEL; j++) {
                     cellGUI = gameDisplay.getBoardGUI().getCellsGUI()[i][j];
                     if (cellGUI == source) {
-                        if (cellGUI.getStatus() == Status.EMPTY) {
-                            cellGUI.setText("");
-                        } else if (cellGUI.getStatus() == Status.MINE) {
-                            cellGUI.setIcon(boom);
-                        } else {
-                            cellGUI.reveal();
-                        }
-                        cellGUI.setVisible(false);
+                        cellGUI.reveal();
                         gameDisplay.add(cellGUI);
-                        break;
                     }
-
                 }
+
             }
         }
 
-        private Color setNumberColor(CellGUI value) {
-            return new Color(1, 1, 1);
-        }
 
         private boolean clicked(CellGUI cellGUI) {
             return cellGUI.getStatus() == Status.EMPTY || cellGUI.getStatus() != Status.FLAG;
