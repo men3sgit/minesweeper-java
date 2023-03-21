@@ -1,8 +1,6 @@
 package com.menes.projects.minesweeper.view;
 
 import com.menes.projects.minesweeper.model.Status;
-import com.menes.projects.minesweeper.service.IconFactoryService;
-import com.menes.projects.minesweeper.service.IconService;
 
 import javax.accessibility.AccessibleRole;
 import javax.swing.*;
@@ -14,7 +12,6 @@ public class CellGUI extends JButton {
     public CellGUI(Status status) {
         this.setText((this.status = status).toString());
         this.setBackground(new Color(201, 201, 201));
-        this.setIcon(IconFactoryService.createIcon(IconService.ALARM));
         this.setFocusable(false);
         this.setFont(new Font("", Font.PLAIN, -5));
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -26,18 +23,18 @@ public class CellGUI extends JButton {
     }
 
     public void reveal() {
-        Icon icon =  new ImageIcon("");
+        Icon icon = new ImageIcon("");
         switch (status) {
-            case _1 -> icon = new ImageIcon("");
-            case _2 -> icon = new ImageIcon("");
-            case _3 -> icon = new ImageIcon("");
-            case _4 -> icon = new ImageIcon("");
-            case _5 -> icon = new ImageIcon("");
-            case _6 -> icon = new ImageIcon("");
-            case _7 -> icon = new ImageIcon("");
-            case _8 -> icon = new ImageIcon("");
-            case MINE -> icon = new ImageIcon("");
-            case FLAG -> icon = new ImageIcon("");
+            case FLAG -> icon = IconFactory.icons[0];
+            case _1 -> icon = IconFactory.icons[1];
+            case _2 -> icon = IconFactory.icons[2];
+            case _3 -> icon = IconFactory.icons[3];
+            case _4 -> icon = IconFactory.icons[4];
+            case _5 -> icon = IconFactory.icons[5];
+            case _6 -> icon = IconFactory.icons[6];
+            case _7 -> icon = IconFactory.icons[7];
+            case _8 -> icon = IconFactory.icons[8];
+            case MINE -> icon = IconFactory.icons[9];
         }
         this.setIcon(icon);
         this.setVisible(false);

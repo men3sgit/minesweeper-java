@@ -2,9 +2,6 @@ package com.menes.projects.minesweeper.controller;
 
 import com.menes.projects.minesweeper.view.CellGUI;
 import com.menes.projects.minesweeper.view.GameDisplay;
-import com.menes.projects.minesweeper.model.Board;
-
-import java.awt.*;
 import java.awt.event.*;
 
 import com.menes.projects.minesweeper.model.*;
@@ -14,6 +11,11 @@ import com.menes.projects.minesweeper.view.MineSweeper;
 //revealed
 
 public class GameController {
+    public GameController(GameDisplay gameDisplay, boolean running) {
+        this.gameDisplay = gameDisplay;
+        this.running = running;
+    }
+
     GameDisplay gameDisplay;
     boolean running = false;
     public ActionListener action = new ActionListener() {
