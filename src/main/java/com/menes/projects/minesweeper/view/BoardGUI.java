@@ -21,7 +21,7 @@ public class BoardGUI extends JPanel {
     public void init() {
         for (int i = 0; i < board.getHeight(); i++) {
             for (int j = 0; j < board.getWidth(); j++) {
-                CellGUI cellGUI = new CellGUI(board.getBoard()[i][j].getStatus());
+                CellGUI cellGUI = new CellGUI(board.getBoard()[i][j]);
                 cellGUI.setBounds(j * edge, i * edge, edge, edge);
                 cellGUI.setPreferredSize(new Dimension(edge, edge));
                 cellsGUI[i][j] = cellGUI;

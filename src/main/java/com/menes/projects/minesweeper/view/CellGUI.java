@@ -1,16 +1,17 @@
 package com.menes.projects.minesweeper.view;
 
+import com.menes.projects.minesweeper.model.Cell;
 import com.menes.projects.minesweeper.model.Status;
 
-import javax.accessibility.AccessibleRole;
 import javax.swing.*;
 import java.awt.*;
 
 public class CellGUI extends JButton {
-    private Status status;
+    private Cell cell;
 
-    public CellGUI(Status status) {
-        this.setText((this.status = status).toString());
+    public CellGUI(Cell cell) {
+        this.cell = cell;
+        this.setText(cell.getStatus().toString());
         this.setBackground(new Color(201, 201, 201));
         this.setFocusable(false);
         this.setFont(new Font("", Font.PLAIN, -5));
@@ -19,12 +20,12 @@ public class CellGUI extends JButton {
     }
 
     public Status getStatus() {
-        return this.status;
+        return this.cell.getStatus();
     }
 
     public void reveal() {
         Icon icon = new ImageIcon("");
-        switch (status) {
+        switch (cell.getStatus()) {
             case FLAG -> icon = IconFactory.icons[0];
             case _1 -> icon = IconFactory.icons[1];
             case _2 -> icon = IconFactory.icons[2];
