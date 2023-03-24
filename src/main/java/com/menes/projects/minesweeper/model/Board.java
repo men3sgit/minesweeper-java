@@ -5,27 +5,38 @@ import com.menes.projects.minesweeper.view.MineSweeper;
 import java.util.Random;
 
 public class Board {
-    private Cell[][] board = new Cell[MineSweeper.LEVEL][MineSweeper.LEVEL];
+    private Cell[][] board = new Cell[MineSweeper.LEVEL][(int) (MineSweeper.LEVEL * 1.6)];
 
+    public int getHeight() {
+        return this.board.length;
+    }
+
+    public int getWidth() {
+        return board[0].length;
+    }
 
     public Board() {
         init();
+        displayBoard();
     }
-    public void init(){
+
+    public void init() {
         initEmptyCells();
 
-        setMines(MineSweeper.LEVEL);
+        setMines(MineSweeper.LEVEL*BoomLevel.HARD);
 
         initMineInBound();
     }
-    private void initEmptyCells(){
+
+    private void initEmptyCells() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 board[i][j] = new Cell(Status.EMPTY);
             }
         }
     }
-    private void initMineInBound(){
+
+    private void initMineInBound() {
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[i].length; j++) {
                 checkMineInBound(i, j); // bound = 3x3
@@ -37,19 +48,12 @@ public class Board {
         return board;
     }
 
-    public int getHeight() {
-        return this.getBoard().length;
-    }
-
-    public int getWidth() {
-        return this.getBoard()[0].length;
-    }
 
     public void setMines(int mines) {
         if (mines == 0) return;
         Random rd = new Random();
-        int x = rd.nextInt(MineSweeper.LEVEL);
-        int y = rd.nextInt(MineSweeper.LEVEL);
+        int y = rd.nextInt(getWidth());
+        int x = rd.nextInt(getHeight());
         if (board[x][y].isEmpty()) {
             board[x][y].setStatus(Status.MINE);
             mines--;

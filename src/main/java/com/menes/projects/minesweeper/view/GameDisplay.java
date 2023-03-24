@@ -25,10 +25,15 @@ public class GameDisplay extends JPanel {
     }
 
     public void initGUI() {
-        setPreferredSize(new Dimension(1000, 600));
+        setPreferredSize(new Dimension(1080, 700));
         setLayout(new BorderLayout());
-        this.add(new JTextField(),BorderLayout.NORTH);
+        JPanel westPanel = new JPanel();
+        JPanel northPanel = new JPanel();
+        westPanel.setPreferredSize(new Dimension(64,0));
+        northPanel.setPreferredSize(new Dimension(0,64));
         this.add(boardGUI, BorderLayout.CENTER);
+        this.add(westPanel,BorderLayout.WEST);
+        this.add(northPanel,BorderLayout.NORTH);
 
     }
 
