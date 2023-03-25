@@ -6,10 +6,10 @@ import com.menes.projects.minesweeper.model.Level;
 import javax.swing.*;
 
 public class MineSweeper extends JFrame {
-    public static int LEVEL = Level.HARD;
-    private GameDisplay game = new GameDisplay();
-    private Home home = new Home();
-    private GameController controller = new GameController(game,true);
+    public static int LEVEL = Level.EASY;
+    private final GameDisplay game = new GameDisplay();
+    private final Home home = new Home();
+    private final GameController controller = new GameController(game,true);
     private boolean gameOver;
     public MineSweeper(){
 

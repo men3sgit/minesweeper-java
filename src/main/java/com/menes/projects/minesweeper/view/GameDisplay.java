@@ -1,9 +1,11 @@
 package com.menes.projects.minesweeper.view;
 
 import com.menes.projects.minesweeper.model.Board;
+import com.menes.projects.minesweeper.model.Cell;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
 
 public class GameDisplay extends JPanel {
     public static int CELL_SIZE = 40;
@@ -18,6 +20,7 @@ public class GameDisplay extends JPanel {
     public GameDisplay() {
         setBackground(Color.MAGENTA);
         initGUI();
+        displayBoard();
     }
 
     public GameDisplay(BoardGUI boardGUI) {
@@ -40,5 +43,34 @@ public class GameDisplay extends JPanel {
 
     public BoardGUI getBoardGUI() {
         return boardGUI;
+    }
+    public void displayBoard(){
+        String label = "MINESWEEPER BY MENES";
+        int rowLength  = getBoardGUI().getCellsGUI()[0].length;
+        System.out.print("\n\n\n\t");
+        for(int i = 0;i<rowLength/2;i++){
+            System.out.print("   ");
+        }
+        System.out.println(label);
+        System.out.print("\t\t\t+");
+       for(int i = 0;i<rowLength;i++){
+           System.out.print("---");
+       }
+        System.out.println("--+");
+        for (CellGUI[] cells : getBoardGUI().getCellsGUI()) {
+            System.out.print("\t\t\t|  ");
+            for(CellGUI cell : cells){
+                System.out.print(cell + "  ");
+            }
+            System.out.println("|");
+
+        }
+        System.out.print("\t\t\t+");
+        for(int i = 0;i<rowLength;i++){
+            System.out.print("---");
+        }
+        System.out.print("--+\n\n\n");
+
+
     }
 }

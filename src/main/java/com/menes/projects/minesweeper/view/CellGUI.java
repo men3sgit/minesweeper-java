@@ -13,10 +13,11 @@ public class CellGUI extends JButton {
         this.cell = cell;
         this.decorator();
         this.setFont(new Font("Courier",Font.BOLD,12));
-        this.setBackground(new Color(201, 201, 201));
+        this.setBackground(new Color(250, 191, 191));
         this.setFocusable(false);
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        this.setEnabled(false);
+        this.setIcon(new ImageIcon("./flags/happy.png"));
+
 
     }
 
@@ -47,40 +48,24 @@ public class CellGUI extends JButton {
         return this.cell.getStatus();
     }
 
-    public void reveal() {
-        Icon icon = new ImageIcon("");
-        switch (cell.getStatus()) {
-            case FLAG -> icon = IconFactory.icons[0];
-            case _1 -> icon = IconFactory.icons[1];
-            case _2 -> icon = IconFactory.icons[2];
-            case _3 -> icon = IconFactory.icons[3];
-            case _4 -> icon = IconFactory.icons[4];
-            case _5 -> icon = IconFactory.icons[5];
-            case _6 -> icon = IconFactory.icons[6];
-            case _7 -> icon = IconFactory.icons[7];
-            case _8 -> icon = IconFactory.icons[8];
-            case MINE -> icon = IconFactory.icons[9];
-        }
-        this.setIcon(icon);
-        this.setVisible(false);
-
-    }
-
     public String statusToString() {
-        String res = "";
+        String status = " ";
         switch (getStatus()) {
-            case FLAG -> res = "F";
-            case _1 -> res = "1";
-            case _2 -> res = "2";
-            case _3 -> res = "3";
-            case _4 -> res = "4";
-            case _5 -> res = "5";
-            case _6 -> res = "6";
-            case _7 -> res = "7";
-            case _8 -> res = "8";
-            case MINE -> res = "O";
+            case FLAG -> status = "F";
+            case _1 -> status = "1";
+            case _2 -> status = "2";
+            case _3 -> status = "3";
+            case _4 -> status = "4";
+            case _5 -> status = "5";
+            case _6 -> status = "6";
+            case _7 -> status = "7";
+            case _8 -> status = "8";
+            case MINE -> status = "@";
         }
-        return res;
+        return status;
+    }
+    public String toString(){
+        return this.statusToString();
     }
 
 

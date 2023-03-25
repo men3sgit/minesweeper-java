@@ -17,7 +17,6 @@ public class Board {
 
     public Board() {
         init();
-        displayBoard();
     }
 
     public void init() {

@@ -6,12 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BoardGUI extends JPanel {
-    private  Board board = new Board();;
-    private CellGUI[][] cellsGUI = new CellGUI[board.getWidth()][board.getWidth()];
+    private Board board;
+    private CellGUI[][] cellsGUI;
     private int edge = GameDisplay.CELL_SIZE; // px
 
     public BoardGUI() {
-        setPreferredSize(new Dimension(edge*board.getHeight(),edge*board.getWidth()));
         setLayout(null);
         setBackground(Color.MAGENTA);
         init();
@@ -19,20 +18,21 @@ public class BoardGUI extends JPanel {
 
 
     public void init() {
+        this.board = new Board();
+        cellsGUI = new CellGUI[board.getHeight()][board.getWidth()];
+        setPreferredSize(new Dimension(edge * board.getHeight(), edge * board.getWidth()));
+
         CellGUI cellGUI;
-        RevealCell label;
         for (int i = 0; i < board.getHeight(); i++) {
             for (int j = 0; j < board.getWidth(); j++) {
-              cellGUI = new CellGUI(board.getBoard()[i][j]);
+                cellGUI = new CellGUI(board.getBoard()[i][j]);
                 cellGUI.setBounds(j * edge, i * edge, edge, edge);
                 cellGUI.setPreferredSize(new Dimension(edge, edge));
-
                 cellsGUI[i][j] = cellGUI;
-                label = new RevealCell(cellGUI);
 //                cellGUI.addActionListener(controller.action);
 //                cellGUI.addMouseListener(controller.mouse);
-                add(label);
                 add(cellGUI);
+                add(new RevealCell(cellGUI));
             }
         }
     }
