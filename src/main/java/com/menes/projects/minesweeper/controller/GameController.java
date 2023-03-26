@@ -28,6 +28,7 @@ public class GameController {
         for (CellGUI[] cells : this.gameDisplay.getBoardGUI().getCellsGUI()) {
             for (CellGUI cell : cells) {
                 cell.addMouseListener(mouse);
+                cell.addActionListener(action);
             }
         }
     }
@@ -39,21 +40,21 @@ public class GameController {
             CellGUI cellGUI;
 //                status.timer.start();
 //                status.switched = false;
-            for (int i = 0; i < MineSweeper.LEVEL; i++) {
-                for (int j = 0; j < MineSweeper.LEVEL; j++) {
+            for (int i = 0; i < gameDisplay.getBoardGUI().getBoard().getHeight(); i++) {
+                for (int j = 0; j < gameDisplay.getBoardGUI().getBoard().getWidth(); j++) {
                     cellGUI = gameDisplay.getBoardGUI().getCellsGUI()[i][j];
-                    if (source == cellGUI && gameDisplay.
-                            getBoardGUI().
-                            getCellsGUI()[i][j].
-                            getStatus() == Status.EMPTY && !running
+                    if (source == cellGUI &&  cellGUI.getStatus() == Status.EMPTY && !running
                     ) {
                         gameDisplay.getBoardGUI().init();
+                        gameDisplay.displayBoard();
+                        System.out.println("NOPE");
                         actionPerformed(e);
                         break;
                     }
                     if (source == cellGUI && clicked(cellGUI)) {
                         revealCell(cellGUI);
                         if (cellGUI.getStatus() == Status.EMPTY) {
+                            System.out.println("haha");
                             spread(i, j);
                         }
                         if (!running) {
@@ -69,23 +70,25 @@ public class GameController {
         }
 
         private void spread(int x, int y) {
-            if (gameDisplay.getBoardGUI().getCellsGUI()[x][y].getStatus() != Status.EMPTY)
+            if (gameDisplay.getBoardGUI().getCellsGUI()[x][y].getStatus() != Status.EMPTY) {
                 return;
+            }
+            System.out.println(gameDisplay.getBoardGUI().getCellsGUI()[x][y].getStatus());
             int i, j, limX, limY;
             i = x == 0 ? x : x - 1;
             j = y == 0 ? y : y - 1;
-            limX = x == MineSweeper.LEVEL - 1 ? x + 1 : x + 2;
-            limY = y == MineSweeper.LEVEL - 1 ? y + 1 : y + 2;
+            limX = x == gameDisplay.getBoardGUI().getBoard().getHeight()- 1 ? x + 1 : x + 2;
+            limY = y == gameDisplay.getBoardGUI().getBoard().getWidth() - 1 ? y + 1 : y + 2;
             for (int row = i; row < limX; row++)
                 for (int col = j; col < limY; col++) {
                     CellGUI cellGUI = gameDisplay.getBoardGUI().getCellsGUI()[row][col];
+                    revealCell(cellGUI);
                     if (cellGUI.getStatus() == Status.EMPTY) {
 //                        if (button.getIcon().toString().equals(flag.toString()))
 //                            status.setQuantityFlagsLabel(++status.quantityFlags);
-                        revealCell(cellGUI);
                         spread(row, col);
-                        cellGUI.setVisible(false);
                     }
+
                 }
         }
 
@@ -96,7 +99,7 @@ public class GameController {
                 for (int j = 0; j < MineSweeper.LEVEL; j++) {
                     cellGUI = gameDisplay.getBoardGUI().getCellsGUI()[i][j];
                     if (cellGUI == source) {
-                        gameDisplay.add(cellGUI);
+                        cellGUI.setVisible(false);
                     }
                 }
 
@@ -110,16 +113,14 @@ public class GameController {
     public MouseListener mouse = new MouseAdapter() {
         @Override
         public void mouseEntered(MouseEvent e) {
-            if (e.getSource() instanceof CellGUI) {
-                CellGUI cell = (CellGUI) e.getSource();
+            if (e.getSource() instanceof CellGUI cell) {
                 cell.setIcon(new ImageIcon("./flags/abstract.png"));
             }
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            if (e.getSource() instanceof CellGUI) {
-                CellGUI cell = (CellGUI) e.getSource();
+            if (e.getSource() instanceof CellGUI cell) {
                 cell.setIcon(new ImageIcon("./flags/happy.png"));
             }
         }

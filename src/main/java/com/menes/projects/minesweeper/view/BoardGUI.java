@@ -40,4 +40,6 @@ public class BoardGUI extends JPanel {
     public CellGUI[][] getCellsGUI() {
         return cellsGUI;
     }
+    public Board getBoard(){return this.board;}
+
 }

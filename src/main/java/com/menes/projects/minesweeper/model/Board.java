@@ -7,7 +7,7 @@ import java.util.Random;
 public class Board {
     private Cell[][] board = new Cell[MineSweeper.LEVEL][(int) (MineSweeper.LEVEL * 1.6)];
 
-    public int getHeight() {
+    public int  getHeight() {
         return this.board.length;
     }
 
@@ -22,7 +22,7 @@ public class Board {
     public void init() {
         initEmptyCells();
 
-        setMines(MineSweeper.LEVEL*BoomLevel.HARD);
+        setMines(MineSweeper.LEVEL*BoomLevel.EASY);
 
         initMineInBound();
     }
